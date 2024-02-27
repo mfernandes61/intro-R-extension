@@ -1,0 +1,144 @@
+---
+title: "Additional Exercises"
+---
+
+```{r, echo = FALSE, purl = FALSE, message = FALSE}
+source("setup.R")
+```
+
+# Session 1 - 
+Extra exercises inspired by "Getting started" & "Introduction to R programming".  
+
+> *Challenge*.  
+> Recall that we suggested that you create a "standard" directory structure. Write a code snippet or script to create your preferred structure as a utility to be run when you create a new Rstudio project.   
+> Consider how you could test if one or more of the directories already exists in your current working directory.   
+> __Hint:__ You may find it useful to checkout Rs help on __'files2'__ and __'getwd'__.   
+>
+> ```{r, answer=TRUE, purl=FALSE}
+> curr_dir <- getwd()
+> print(curr_dir)
+> if (!dir.exists("data"))  dir.create("data")
+>
+> # Another (and more flexible ) way could use the 'lapply' function (see R help) like this:    
+> tst_apply <- c("d1","d2","d3") # a vector of sub-dirs to create
+> lapply(tst_apply, dir.create)
+> ```
+
+*Challenge*.  
+Using two of the functions we introduced in this session, find out how many missing variables are missing in the cereals dataset. \
+NB You will need to execute "install.packages("plspm")" first to install package and its dataset.   
+```{r}
+# Install dataset
+library(plspm)
+data("cereals")
+# read in surveys as dataframe (assumes portal data in data dir)
+surveys <- read.csv("data/portal_data_joined.csv")
+
+```
+
+> ```{r, answer=TRUE, purl=FALSE}
+> # we can add up the number of TRUEs using the sum() function
+> sum(is.na(cereals))
+> # if this is zero then there are no missing values.  
+> ```
+
+Work through the surveys data-set and find which columns have missing values and how many.    
+For an extra challenge use the help (or google) to use a __for__ loop to count the number of NAs in each column and the __cat()__ to print out a table.   
+```{r}
+sum(is.na(surveys))
+coln <- colnames(surveys)
+length(coln)
+coln
+# could print sum(is.na(surveys, 1)) 2 etc to print
+# tota NAs for each column or....
+out_lst <- list()
+for( i in 1: length(coln))
+  cat(i, coln[i], sum(is.na(surveys[,i])),"\n")
+```
+
+# Session 2 -
+Extra exercises inspired by "Starting with data".   
+The data set contains 77 cereals with 15 variables:
+
+manufacturer (categorical).  
+type (categorical).  
+number of calories (numeric).  
+grams of protein (numeric).  
+grams of fat (numeric).  
+milligrams of sodium (numeric).  
+grams of dietary fiber (numeric).  
+grams of complex carbohydrates (numeric).  
+grams of sugars (numeric).   
+grams of potassium (numeric).  
+percentage of FDA recommended vitamins (numeric).   
+display shelf (categorical).  
+weight in ounces (numeric).  
+number of cups in one serving (numeric).  
+rating of the cereal (numeric).  
+
+```{r}
+summary(cereals)
+```
+
+*Challenge*.  
+* List data for the cereals manufactured by firm 'K'.   
+```{r}
+cereals[cereals$mfr == "K",]
+```
+
+* Find the first ten cereals that have greater than 100 calories per serving.   
+```{r}
+head(cereals[cereals$calories > 100,],10)
+```
+
+* Of the cereals that have greater than 100 calories per serving, what is the mean number of calories/serving?
+```{r}
+mean(cereals$calories[cereals$calories > 100])
+```
+
+* List those cereals made by 'K' with less than 100 calories per serving.   
+```{r}
+cereals[cereals$calories < 100 & cereals$mfr == "K",]
+```
+
+# Session 3 -
+Extra exercises inspired by session 1 of  "Data manipulation and visualisation with tidyverse".  
+
+Load 'tidyverse' and convert cereals to a tibble (either by saving to CSV and then reading back into a tibble or by learning to use the __as_tibble__ function from R help).   
+```{r}
+library(tidyverse)
+cereals_t <- as_tibble(cereals)
+```
+
+*Challenge*.  
+
+It is hypothesised that consumers prefer cereals that contain more sugar. Plot the relationship between sugar content and rating.
+Does this support the hypothesis?   
+
+```{r}
+ggplot(data = cereals_t,mapping = aes(x = sugars, y = rating)) +
+  geom_point() +
+  geom_smooth()
+```
+
+It is possible that market dominance is skewing our sample.   
+Produce a bar-plot showing the number of items made by each manufacturer in our data-set.   
+```{r}
+ggplot(data=cereals_t,mapping = aes(x=mfr)) +
+ geom_bar()
+```
+
+In section 2 you listed those cereals made by 'K' with less than 100 calories per serving using the 'Base R' method. Please produce a Tidyverse version (without creating any intermediate variables or nesting functions). List the manufacturer, calories and cereal name.   
+```{r}
+cereals_t %>%
+  filter(calories < 100 & mfr == "K") %>%
+  select(mfr,calories, type)
+```
+
+
+# Session 4 -
+Extra exercises inspired by session 2 of "Data manipulation and visualisation with tidyverse".  
+
+*Challenge*.  
+
+# Capstone project (Putting it all together) -

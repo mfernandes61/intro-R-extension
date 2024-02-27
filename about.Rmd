@@ -1,0 +1,11 @@
+---
+title: "About This Website"
+---
+
+<u>First draft: Mark Fernandes 2024</u>
+
+This is a set of exercises with the following goals:
+
+-   Have more opportunities to practice learnt skills
+-   Provide extra challenges for the more able/advanced students
+-   provide homework between taught sessions when the course is taught as modules as opposed to a 2-day course block.

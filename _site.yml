@@ -1,0 +1,8 @@
+name: "More exercises"
+navbar:
+  title: "Intro to R - Extension/enrichment exercises"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html

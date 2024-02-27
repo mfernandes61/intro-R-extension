@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Additional Exercises</title>
+
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R - Extension/enrichment exercises</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Additional Exercises</h1>
+
+</div>
+
+
+<div id="session-1--" class="section level1">
+<h1>Session 1 -</h1>
+<p>Extra exercises inspired by “Getting started” &amp; “Introduction to
+R programming”.</p>
+<blockquote>
+<p><em>Challenge</em>.<br />
+Recall that we suggested that you create a “standard” directory
+structure. Write a code snippet or script to create your preferred
+structure as a utility to be run when you create a new Rstudio
+project.<br />
+Consider how you could test if one or more of the directories already
+exists in your current working directory.<br />
+<strong>Hint:</strong> You may find it useful to checkout Rs help on
+<strong>‘files2’</strong> and <strong>‘getwd’</strong>.</p>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<pre class="r"><code>curr_dir &lt;- getwd()
+print(curr_dir)
+if (!dir.exists(&quot;data&quot;))  dir.create(&quot;data&quot;)
+
+# Another (and more flexible ) way could use the &#39;lapply&#39; function (see R help) like this:    
+tst_apply &lt;- c(&quot;d1&quot;,&quot;d2&quot;,&quot;d3&quot;) # a vector of sub-dirs to create
+lapply(tst_apply, dir.create)</code></pre>
+<pre><code>#&gt; Warning in FUN(X[[i]], ...): &#39;d1&#39; already exists</code></pre>
+<pre><code>#&gt; Warning in FUN(X[[i]], ...): &#39;d2&#39; already exists</code></pre>
+<pre><code>#&gt; Warning in FUN(X[[i]], ...): &#39;d3&#39; already exists</code></pre>
+</div>
+</div>
+</blockquote>
+<p><em>Challenge</em>.<br />
+Using two of the functions we introduced in this session, find out how
+many missing variables are missing in the cereals dataset.<br />
+NB You will need to execute “install.packages(”plspm”)” first to install
+package and its dataset.</p>
+<pre class="r"><code># Install dataset
+library(plspm)</code></pre>
+<pre><code>#&gt; 
+#&gt; Attaching package: &#39;plspm&#39;</code></pre>
+<pre><code>#&gt; The following object is masked from &#39;package:ggplot2&#39;:
+#&gt; 
+#&gt;     alpha</code></pre>
+<pre class="r"><code>data(&quot;cereals&quot;)
+# read in surveys as dataframe (assumes portal data in data dir)
+surveys &lt;- read.csv(&quot;data/portal_data_joined.csv&quot;)</code></pre>
+<blockquote>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<pre class="r"><code># we can add up the number of TRUEs using the sum() function
+sum(is.na(cereals))
+# if this is zero then there are no missing values.  </code></pre>
+</div>
+</div>
+</blockquote>
+<p>Work through the surveys data-set and find which columns have missing
+values and how many.<br />
+For an extra challenge use the help (or google) to use a
+<strong>for</strong> loop to count the number of NAs in each column and
+the <strong>cat()</strong> to print out a table.</p>
+<pre class="r"><code>sum(is.na(surveys))
+coln &lt;- colnames(surveys)
+length(coln)
+coln
+# could print sum(is.na(surveys, 1)) 2 etc to print
+# tota NAs for each column or....
+out_lst &lt;- list()
+for( i in 1: length(coln))
+  cat(i, coln[i], sum(is.na(surveys[,i])),&quot;\n&quot;)</code></pre>
+</div>
+<div id="session-2--" class="section level1">
+<h1>Session 2 -</h1>
+<p>Extra exercises inspired by “Starting with data”.<br />
+The data set contains 77 cereals with 15 variables:</p>
+<p>manufacturer (categorical).<br />
+type (categorical).<br />
+number of calories (numeric).<br />
+grams of protein (numeric).<br />
+grams of fat (numeric).<br />
+milligrams of sodium (numeric).<br />
+grams of dietary fiber (numeric).<br />
+grams of complex carbohydrates (numeric).<br />
+grams of sugars (numeric).<br />
+grams of potassium (numeric).<br />
+percentage of FDA recommended vitamins (numeric).<br />
+display shelf (categorical).<br />
+weight in ounces (numeric).<br />
+number of cups in one serving (numeric).<br />
+rating of the cereal (numeric).</p>
+<pre class="r"><code>summary(cereals)</code></pre>
+<p><em>Challenge</em>.<br />
+* List data for the cereals manufactured by firm ‘K’.</p>
+<pre class="r"><code>cereals[cereals$mfr == &quot;K&quot;,]</code></pre>
+<ul>
+<li>Find the first ten cereals that have greater than 100 calories per
+serving.</li>
+</ul>
+<pre class="r"><code>head(cereals[cereals$calories &gt; 100,],10)</code></pre>
+<ul>
+<li>Of the cereals that have greater than 100 calories per serving, what
+is the mean number of calories/serving?</li>
+</ul>
+<pre class="r"><code>mean(cereals$calories[cereals$calories &gt; 100])</code></pre>
+<ul>
+<li>List those cereals made by ‘K’ with less than 100 calories per
+serving.</li>
+</ul>
+<pre class="r"><code>cereals[cereals$calories &lt; 100 &amp; cereals$mfr == &quot;K&quot;,]</code></pre>
+</div>
+<div id="session-3--" class="section level1">
+<h1>Session 3 -</h1>
+<p>Extra exercises inspired by session 1 of “Data manipulation and
+visualisation with tidyverse”.</p>
+<p>Load ‘tidyverse’ and convert cereals to a tibble (either by saving to
+CSV and then reading back into a tibble or by learning to use the
+<strong>as_tibble</strong> function from R help).</p>
+<pre class="r"><code>library(tidyverse)
+cereals_t &lt;- as_tibble(cereals)</code></pre>
+<p><em>Challenge</em>.</p>
+<p>It is hypothesised that consumers prefer cereals that contain more
+sugar. Plot the relationship between sugar content and rating. Does this
+support the hypothesis?</p>
+<pre class="r"><code>ggplot(data = cereals_t,mapping = aes(x = sugars, y = rating)) +
+  geom_point() +
+  geom_smooth()</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>It is possible that market dominance is skewing our sample.<br />
+Produce a bar-plot showing the number of items made by each manufacturer
+in our data-set.</p>
+<pre class="r"><code>ggplot(data=cereals_t,mapping = aes(x=mfr)) +
+ geom_bar()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>In section 2 you listed those cereals made by ‘K’ with less than 100
+calories per serving using the ‘Base R’ method. Please produce a
+Tidyverse version (without creating any intermediate variables or
+nesting functions). List the manufacturer, calories and cereal name.</p>
+<pre class="r"><code>cereals_t %&gt;%
+  filter(calories &lt; 100 &amp; mfr == &quot;K&quot;) %&gt;%
+  select(mfr,calories, type)</code></pre>
+</div>
+<div id="session-4--" class="section level1">
+<h1>Session 4 -</h1>
+<p>Extra exercises inspired by session 2 of “Data manipulation and
+visualisation with tidyverse”.</p>
+<p><em>Challenge</em>.</p>
+</div>
+<div id="capstone-project-putting-it-all-together--"
+class="section level1">
+<h1>Capstone project (Putting it all together) -</h1>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
