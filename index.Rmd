@@ -6,14 +6,20 @@ title: "Additional Exercises"
 source("setup.R")
 ```
 
-# Session 1 - 
-Extra exercises inspired by "Getting started" & "Introduction to R programming".  
+```{r, echo=FALSE, purl=TRUE, warning=FALSE}
+### Extended activities
+```
+
+# Session 1  
+Extra exercises inspired by _"Getting started" & "Introduction to R programming"_.  
 
 > *Challenge*.  
 > Recall that we suggested that you create a "standard" directory structure. Write a code snippet or script to create your preferred structure as a utility to be run when you create a new Rstudio project.   
 > Consider how you could test if one or more of the directories already exists in your current working directory.   
 > __Hint:__ You may find it useful to checkout Rs help on __'files2'__ and __'getwd'__.   
 >
+<details>
+  <summary>Answer</summary>
 > ```{r, answer=TRUE, purl=FALSE}
 > curr_dir <- getwd()
 > print(curr_dir)
@@ -23,41 +29,50 @@ Extra exercises inspired by "Getting started" & "Introduction to R programming".
 > tst_apply <- c("d1","d2","d3") # a vector of sub-dirs to create
 > lapply(tst_apply, dir.create)
 > ```
+</details>
 
-*Challenge*.  
-Using two of the functions we introduced in this session, find out how many missing variables are missing in the cereals dataset. \
-NB You will need to execute "install.packages("plspm")" first to install package and its dataset.   
-```{r}
-# Install dataset
-library(plspm)
-data("cereals")
-# read in surveys as dataframe (assumes portal data in data dir)
-surveys <- read.csv("data/portal_data_joined.csv")
+> #### *Challenge*.  
+> Using two of the functions we introduced in this session, find out how many missing variables are missing in the cereals dataset. \
+> NB You will need to execute "install.packages("plspm")" first to install package and its dataset.  
 
-```
-
+> ```{r}
+> # Install dataset
+> library(plspm)
+> data("cereals")
+> # read in surveys as dataframe (assumes portal data in data dir)
+> surveys <- read.csv("data/portal_data_joined.csv")
+> ```
+>
+<details>
+  <summary>Answer</summary>
 > ```{r, answer=TRUE, purl=FALSE}
 > # we can add up the number of TRUEs using the sum() function
 > sum(is.na(cereals))
 > # if this is zero then there are no missing values.  
 > ```
+</details>
 
-Work through the surveys data-set and find which columns have missing values and how many.    
-For an extra challenge use the help (or google) to use a __for__ loop to count the number of NAs in each column and the __cat()__ to print out a table.   
-```{r}
-sum(is.na(surveys))
-coln <- colnames(surveys)
-length(coln)
-coln
-# could print sum(is.na(surveys, 1)) 2 etc to print
-# tota NAs for each column or....
-out_lst <- list()
-for( i in 1: length(coln))
-  cat(i, coln[i], sum(is.na(surveys[,i])),"\n")
-```
+> Work through the __surveys__ data-set and find which columns
+> have missing values and how many.    
+> For an extra challenge use the help (or google) to use a __for__ loop to count the number of NAs in each column and the __cat()__ to print out a table.   
+>
+<details>
+  <summary>Answer</summary>
+> ```{r}
+> sum(is.na(surveys))
+> coln <- colnames(surveys)
+> length(coln)
+> coln
+> # could print sum(is.na(surveys, 1)) 2 etc to print
+> # tota NAs for each column or....
+> out_lst <- list()
+> for( i in 1: length(coln))
+>   cat(i, coln[i], sum(is.na(surveys[,i])),"\n")
+> ```
+</details>
 
-# Session 2 -
-Extra exercises inspired by "Starting with data".   
+# Session 2 
+Extra exercises inspired by _"Starting with data"_.   
 The data set contains 77 cereals with 15 variables:
 
 manufacturer (categorical).  
@@ -81,64 +96,123 @@ summary(cereals)
 ```
 
 *Challenge*.  
-* List data for the cereals manufactured by firm 'K'.   
-```{r}
-cereals[cereals$mfr == "K",]
-```
+
+* List data for the cereals manufactured by firm 'K'.  
+
+<details>
+  <summary>Answer</summary>
+> ```{r}
+> cereals[cereals$mfr == "K",]
+>```
+</details>.   
 
 * Find the first ten cereals that have greater than 100 calories per serving.   
+
+<details>
+  <summary>Answer</summary>
 ```{r}
 head(cereals[cereals$calories > 100,],10)
 ```
+</details>
 
-* Of the cereals that have greater than 100 calories per serving, what is the mean number of calories/serving?
+* Of the cereals that have greater than 100 calories per serving, what is the mean number of calories/serving?   
+
+<details>
+  <summary>Answer</summary>
 ```{r}
 mean(cereals$calories[cereals$calories > 100])
 ```
+</details>
 
 * List those cereals made by 'K' with less than 100 calories per serving.   
+
+<details>
+  <summary>Answer</summary>
 ```{r}
 cereals[cereals$calories < 100 & cereals$mfr == "K",]
 ```
+</details>.  
 
-# Session 3 -
-Extra exercises inspired by session 1 of  "Data manipulation and visualisation with tidyverse".  
+
+# Session 3 
+Extra exercises inspired by session 1 of  _"Data manipulation and visualisation with tidyverse"_.  
 
 Load 'tidyverse' and convert cereals to a tibble (either by saving to CSV and then reading back into a tibble or by learning to use the __as_tibble__ function from R help).   
+<details>
+  <summary>Answer</summary>
 ```{r}
 library(tidyverse)
 cereals_t <- as_tibble(cereals)
 ```
+</details>
 
 *Challenge*.  
-
 It is hypothesised that consumers prefer cereals that contain more sugar. Plot the relationship between sugar content and rating.
 Does this support the hypothesis?   
 
+<details>
+  <summary>Answer</summary>
 ```{r}
 ggplot(data = cereals_t,mapping = aes(x = sugars, y = rating)) +
   geom_point() +
   geom_smooth()
 ```
+</details>
 
 It is possible that market dominance is skewing our sample.   
 Produce a bar-plot showing the number of items made by each manufacturer in our data-set.   
+<details>
+  <summary>Answer</summary>
 ```{r}
 ggplot(data=cereals_t,mapping = aes(x=mfr)) +
  geom_bar()
 ```
+</details>
 
 In section 2 you listed those cereals made by 'K' with less than 100 calories per serving using the 'Base R' method. Please produce a Tidyverse version (without creating any intermediate variables or nesting functions). List the manufacturer, calories and cereal name.   
+<details>
+  <summary>Answer</summary>
 ```{r}
 cereals_t %>%
   filter(calories < 100 & mfr == "K") %>%
   select(mfr,calories, type)
 ```
+</details>
 
-
-# Session 4 -
-Extra exercises inspired by session 2 of "Data manipulation and visualisation with tidyverse".  
+# Session 4 
+Extra exercises inspired by session 2 of _"Data manipulation and visualisation with tidyverse"_.  
 
 *Challenge*.  
 
-# Capstone project (Putting it all together) -
+# Capstone project (Putting it all together).  
+This will be performed on a dataset from a paper by [Reaven & Miller - downloadable from here](https://web.math.utk.edu/~fernando/Students/GregClark/pdf/Miller-Reaven-Diabetes.pdf). This research analyses the stages of the disease Type 2 Diabetes.  
+```{r}
+# list dataset
+library(heplots)
+Diabetes
+```
+We have 5 columns with numeric values (relwt, glufast, glutest, instest, sspg) and one categorical column (group).   
+Details about these values are to be found [here](https://search.r-project.org/CRAN/refmans/heplots/html/Diabetes.html).   
+# explore the dataset
+
+```{r}
+summary(Diabetes)
+```
+From this we find that Group comprises of 3 values: (Normal, Chemical_Diabetic, Overt_Diabetic).   
+
+## Histogram plots of the data.  
+Use the Base R __hist()__ command (Consult R help for usage) to plot the distributions of the numeric variables - are they normally distributed (Bell curve)?.    
+```{r}
+# Plot histograms of all columns distributions
+# Does data fit normality criteria for statistical tests?
+# e.g. if we wanted to do a t-test. We'll just use base R histogam
+# here - As an extra exercise: How would you do this in tidyverse
+# as well?
+hist(Diabetes$relwt)
+hist(Diabetes$glufast)
+hist(Diabetes$glutest)
+hist(Diabetes$instest)
+hist(Diabetes$sspg)
+```
+
+# Explore correlations.  
