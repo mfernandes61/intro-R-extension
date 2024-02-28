@@ -672,11 +672,14 @@ stages of the disease Type 2 Diabetes.</p>
 <p>We have 5 columns with numeric values (relwt, glufast, glutest,
 instest, sspg) and one categorical column (group).<br />
 Details about these values are to be found <a
-href="https://search.r-project.org/CRAN/refmans/heplots/html/Diabetes.html">here</a>.<br />
-# explore the dataset</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">summary</span>(Diabetes)</span></code></pre></div>
+href="https://search.r-project.org/CRAN/refmans/heplots/html/Diabetes.html">here</a>.</p>
+<div id="explore-the-dataset." class="section level2">
+<h2>explore the dataset.</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">summary</span>(Diabetes))</span></code></pre></div>
 <p>From this we find that Group comprises of 3 values: (Normal,
-Chemical_Diabetic, Overt_Diabetic).</p>
+Chemical_Diabetic, Overt_Diabetic) corresponding to stages of developing
+Type 2 diabetes.</p>
+</div>
 <div id="histogram-plots-of-the-data." class="section level2">
 <h2>Histogram plots of the data.</h2>
 <p>Use the Base R <strong>hist()</strong> command (Consult R help for
@@ -687,16 +690,34 @@ normally distributed (Bell curve)?.</p>
 <span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co"># e.g. if we wanted to do a t-test. We&#39;ll just use base R histogam</span></span>
 <span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co"># here - As an extra exercise: How would you do this in tidyverse</span></span>
 <span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co"># as well?</span></span>
-<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>relwt)</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>relwt)  </span>
 <span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>glufast)</span>
-<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>glutest)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>glutest)  </span>
 <span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>instest)</span>
 <span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="fu">hist</span>(Diabetes<span class="sc">$</span>sspg)</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-18-1.png" width="672" /></p>
 </div>
+<div id="explore-correlations." class="section level2">
+<h2>Explore correlations.</h2>
+<p>Install the “PerformanceAnalytics” package to help us create
+correlation plots for our data-set.</p>
+<p>NB.<br />
+- This plot also provides another way of generating the histograms of
+the data columns.<br />
+- The distribution of each variable is shown on the diagonal.<br />
+- On the bottom of the diagonal : the bivariate scatter plots with a
+fitted line are displayed.<br />
+- On the top of the diagonal : the value of the correlation plus the
+significance level as stars.<br />
+- Each significance level is associated to a symbol :<br />
+p-values(0, 0.001, 0.01, 0.05, 0.1, 1) &lt;=&gt; symbols(“<em><strong>”,
+“</strong>”, “</em>”, “.”, ” “).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="co"># install.packages(&quot;PerformanceAnalytics&quot;)</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;PerformanceAnalytics&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> Diabetes[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="fu">chart.Correlation</span>(my_data, <span class="at">histogram=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-19-1.png" width="672" /></p>
 </div>
-<div id="explore-correlations." class="section level1">
-<h1>Explore correlations.</h1>
 </div>
 
 
