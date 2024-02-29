@@ -182,8 +182,11 @@ Load 'tidyverse' and convert cereals to a tibble (either by saving to CSV and th
 <summary>Answer</summary>
 
 ```{r}
+# NB dataframe has the cereal name as rownames. To preserve this
+# data in our tibble we use "rownames=" parameter to create a
+# cer_name column.
 library(tidyverse)
-cereals_t <- as_tibble(cereals)
+cereals_t <- as_tibble(cereals, rownames = "cer_name")
 ```
 
 </details>
@@ -309,7 +312,6 @@ Use the Base R **hist()** command (Consult R help for usage) to plot the distrib
 <details>
 
 <summary>Answer</summary>
-
 ```{r, warning=FALSE}
 # Plot histograms of all columns distributions
 # Does data fit normality criteria for statistical tests?
@@ -317,12 +319,39 @@ Use the Base R **hist()** command (Consult R help for usage) to plot the distrib
 # here - As an extra exercise: How would you do this in tidyverse
 # as well?
 hist(Diabetes$relwt)  
+```
+```{r, warning=FALSE}
+# Plot histograms of all columns distributions
+# Does data fit normality criteria for statistical tests?
+# e.g. if we wanted to do a t-test. We'll just use base R histogam
+# here - As an extra exercise: How would you do this in tidyverse
+# as well?
 hist(Diabetes$glufast)
+```
+```{r, warning=FALSE}
+# Plot histograms of all columns distributions
+# Does data fit normality criteria for statistical tests?
+# e.g. if we wanted to do a t-test. We'll just use base R histogam
+# here - As an extra exercise: How would you do this in tidyverse
+# as well?
 hist(Diabetes$glutest)  
+```
+```{r, warning=FALSE}
+# Plot histograms of all columns distributions
+# Does data fit normality criteria for statistical tests?
+# e.g. if we wanted to do a t-test. We'll just use base R histogam
+# here - As an extra exercise: How would you do this in tidyverse
+# as well?
 hist(Diabetes$instest)
+```
+```{r, warning=FALSE}
+# Plot histograms of all columns distributions
+# Does data fit normality criteria for statistical tests?
+# e.g. if we wanted to do a t-test. We'll just use base R histogam
+# here - As an extra exercise: How would you do this in tidyverse
+# as well?
 hist(Diabetes$sspg)
 ```
-
 </details>
 
 ## Explore correlations.
@@ -338,16 +367,13 @@ NB.\
 p-values(0, 0.001, 0.01, 0.05, 0.1, 1) \<=\> symbols(“***”, “**”, “*”, “.”, " “).
 
 <details>
-
 <summary>Answer</summary>
-
 ```{r, warning=FALSE, message=FALSE}
 # install.packages("PerformanceAnalytics")
 library("PerformanceAnalytics")
 my_data <- Diabetes[, c(1,2,3,4,5)]
 chart.Correlation(my_data, histogram=TRUE, pch=19)
 ```
-
 </details>
 
 Lets now replicate Table 1 from the paper. It has columns:   
@@ -405,7 +431,10 @@ ggplot(Diabetes, mapping= aes(x=glutest, y =instest, shape=group)) +
   labs(title = "Fig. 2, Relationship between the plasma glucose \n (mg/100 ml 9hr) and insulin (~tU/ml 9hr) responses ",
        x = "Glucose area",
        y = "Insulin area")
+```
 
+
+```{r}
 # Now repeat for Fig 3
 ggplot(Diabetes, mapping= aes(x=instest, y =sspg, shape=group)) +
   geom_point() +
