@@ -251,9 +251,7 @@ It should look like this:
 | R	| 115.00000	|.  
 
 <details>
-
 <summary>Answer</summary>
-
 ```{r}
 # Look up rename() in help - it's a useful dplyr verb
 cereals_t %>%
@@ -261,7 +259,6 @@ cereals_t %>%
   rename(Manufacturer = mfr) %>%
   summarise(mean_calories=mean(calories))
 ```
-
 </details>
 
 Produce a scatterplot of calories vs. sugar grouped by manufacturer.   
@@ -274,7 +271,6 @@ ggplot(data = cereals_t, mapping = aes(x = sugars, y = calories)) +
     geom_smooth() +
     facet_wrap(facets = vars(mfr))
 ```
-
 </details>
 
 <hr>
@@ -285,15 +281,12 @@ This will be performed on a dataset from a paper by [Reaven & Miller - downloada
 You will need to install the 'heplots' package and load it using library() and this will bring in the data-set we will be working with.\
 
 <details>
-
 <summary>Answer</summary>
-
 ```{r}
 # list dataset
 library(heplots)
 Diabetes
 ```
-
 </details>
 
 ## Gain familiarity with the Diabetes dataset.
@@ -355,4 +348,69 @@ my_data <- Diabetes[, c(1,2,3,4,5)]
 chart.Correlation(my_data, histogram=TRUE, pch=19)
 ```
 
+</details>
+
+Lets now replicate Table 1 from the paper. It has columns:   
+Group, Number in group, Mean Relwt with SD, Mean glucose area with SD, Mean insulin area with SD, mean SSPG with SD.   
+
+<details>
+<summary>Answer</summary>
+```{r}
+Diabetes %>%
+    group_by(group) %>%
+    summarise(
+        grp_size = n(),
+        mean_relwt = mean(relwt),
+        sd_relwt = sd(relwt),
+        mean_glucosearea = mean(glutest),
+        sd_glucarea = sd(glutest),
+        mean_insulinarea = mean(instest),
+        sd_insu_area = sd(instest),
+        mean_sspg = mean(sspg),
+        sd_sspg = sd(sspg)
+    )
+```
+</details>
+The table in Reaven & Millars paper has values quoted to 2 decimal places, modify your code to better mimic that.   
+<details>
+<summary>Answer</summary>
+```{r}
+# We use our 'old friend' the round() function 
+# with a digits=2 parameter
+Diabetes %>%
+    group_by(group) %>%
+    summarise(
+        grp_size = n(),
+        mean_relwt = round(mean(relwt),2),
+        sd_relwt = round(sd(relwt),2),
+        mean_glucosearea = round(mean(glutest),2),
+        sd_glucarea = round(sd(glutest),2),
+        mean_insulinarea = round(mean(instest),2),
+        sd_insu_area = round(sd(instest),2),
+        mean_sspg = round(mean(sspg),2),
+        sd_sspg = round(sd(sspg),2)
+    )
+```
+</details>
+
+Now we replicate figures 2 & 3 from the paper. Scatterplots of insulin area vs glucose area and sspg vs. insulin area. The group that a data point is from should be appropriately discernable.   
+
+<details>
+<summary>Answer</summary>
+```{r}
+# NB We could have used colour=group but shape is closer
+# to the published graph. Note usage of \n in title to break line.
+ggplot(Diabetes, mapping= aes(x=glutest, y =instest, shape=group)) +
+  geom_point() +
+  labs(title = "Fig. 2, Relationship between the plasma glucose \n (mg/100 ml 9hr) and insulin (~tU/ml 9hr) responses ",
+       x = "Glucose area",
+       y = "Insulin area")
+
+# Now repeat for Fig 3
+ggplot(Diabetes, mapping= aes(x=instest, y =sspg, shape=group)) +
+  geom_point() +
+  labs(title = "Fig. 3. Relationship between the plasma insulin \n response(~tU/ml 9hr) and SSPG (rag/100 ml) ",
+       x = "Insulin area",
+       y = "SSPG")
+```
 </details>
