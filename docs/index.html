@@ -732,7 +732,7 @@ Answer
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>    <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
 <span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(mfr))</span></code></pre></div>
-<p><img src="img/R-ecology-unnamed-chunk-17-1.png" width="672" /></p>
+<img src="img/R-ecology-unnamed-chunk-17-1.png" width="672" />
 </details>
 <hr>
 </div>
@@ -817,6 +817,73 @@ Answer
 <span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> Diabetes[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</span>
 <span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="fu">chart.Correlation</span>(my_data, <span class="at">histogram=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-21-1.png" width="672" /></p>
+</details>
+<p>Lets now replicate Table 1 from the paper. It has columns:<br />
+Group, Number in group, Mean Relwt with SD, Mean glucose area with SD,
+Mean insulin area with SD, mean SSPG with SD.</p>
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>Diabetes <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>    <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>        <span class="at">grp_size =</span> <span class="fu">n</span>(),</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>        <span class="at">mean_relwt =</span> <span class="fu">mean</span>(relwt),</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>        <span class="at">sd_relwt =</span> <span class="fu">sd</span>(relwt),</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>        <span class="at">mean_glucosearea =</span> <span class="fu">mean</span>(glutest),</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>        <span class="at">sd_glucarea =</span> <span class="fu">sd</span>(glutest),</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>        <span class="at">mean_insulinarea =</span> <span class="fu">mean</span>(instest),</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>        <span class="at">sd_insu_area =</span> <span class="fu">sd</span>(instest),</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>        <span class="at">mean_sspg =</span> <span class="fu">mean</span>(sspg),</span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>        <span class="at">sd_sspg =</span> <span class="fu">sd</span>(sspg)</span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>    )</span></code></pre></div>
+</details>
+The table in Reaven &amp; Millars paper has values quoted to 2 decimal
+places, modify your code to better mimic that.<br />
+
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># We use our &#39;old friend&#39; the round() function </span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="co"># with a digits=2 parameter</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>Diabetes <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>    <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>        <span class="at">grp_size =</span> <span class="fu">n</span>(),</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>        <span class="at">mean_relwt =</span> <span class="fu">round</span>(<span class="fu">mean</span>(relwt),<span class="dv">2</span>),</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>        <span class="at">sd_relwt =</span> <span class="fu">round</span>(<span class="fu">sd</span>(relwt),<span class="dv">2</span>),</span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>        <span class="at">mean_glucosearea =</span> <span class="fu">round</span>(<span class="fu">mean</span>(glutest),<span class="dv">2</span>),</span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>        <span class="at">sd_glucarea =</span> <span class="fu">round</span>(<span class="fu">sd</span>(glutest),<span class="dv">2</span>),</span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a>        <span class="at">mean_insulinarea =</span> <span class="fu">round</span>(<span class="fu">mean</span>(instest),<span class="dv">2</span>),</span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>        <span class="at">sd_insu_area =</span> <span class="fu">round</span>(<span class="fu">sd</span>(instest),<span class="dv">2</span>),</span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>        <span class="at">mean_sspg =</span> <span class="fu">round</span>(<span class="fu">mean</span>(sspg),<span class="dv">2</span>),</span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a>        <span class="at">sd_sspg =</span> <span class="fu">round</span>(<span class="fu">sd</span>(sspg),<span class="dv">2</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a>    )</span></code></pre></div>
+</details>
+<p>Now we replicate figures 2 &amp; 3 from the paper. Scatterplots of
+insulin area vs glucose area and sspg vs. insulin area. The group that a
+data point is from should be appropriately discernable.</p>
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># NB We could have used colour=group but shape is closer</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="co"># to the published graph. Note usage of \n in title to break line.</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">ggplot</span>(Diabetes, <span class="at">mapping=</span> <span class="fu">aes</span>(<span class="at">x=</span>glutest, <span class="at">y =</span>instest, <span class="at">shape=</span>group)) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fig. 2, Relationship between the plasma glucose </span><span class="sc">\n</span><span class="st"> (mg/100 ml 9hr) and insulin (~tU/ml 9hr) responses &quot;</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Glucose area&quot;</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Insulin area&quot;</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="co"># Now repeat for Fig 3</span></span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a><span class="fu">ggplot</span>(Diabetes, <span class="at">mapping=</span> <span class="fu">aes</span>(<span class="at">x=</span>instest, <span class="at">y =</span>sspg, <span class="at">shape=</span>group)) <span class="sc">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Fig. 3. Relationship between the plasma insulin </span><span class="sc">\n</span><span class="st"> response(~tU/ml 9hr) and SSPG (rag/100 ml) &quot;</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Insulin area&quot;</span>,</span>
+<span id="cb31-14"><a href="#cb31-14" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;SSPG&quot;</span>)</span></code></pre></div>
+<img src="img/R-ecology-unnamed-chunk-24-1.png" width="672" />
 </details>
 </div>
 </div>
